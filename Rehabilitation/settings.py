@@ -36,6 +36,15 @@ DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['*']
 
+# Configuración de seguridad
+DEBUG = False
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_SSL_REDIRECT = True  # Redirige todas las solicitudes HTTP a HTTPS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -102,7 +111,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Rehabilitation.wsgi.application'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Channels
-ASGI_APPLICATION = 'routing.application'
+ASGI_APPLICATION = 'AppRehabilitation.routing.application'
 CHANNEL_LAYERS={
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
@@ -119,9 +128,6 @@ DATABASES = {
     )
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','http://localhost:8000/']
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -141,7 +147,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SECURE_SSL_REDIRECT = True
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
